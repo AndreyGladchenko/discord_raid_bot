@@ -6,7 +6,7 @@ import discord
 
 from discord.ext import commands
 
-from sqlite_update_database import add_user
+from sqlite_update_subscribers import add_user
 
 intents = discord.Intents.default()
 intents.members = True
@@ -70,13 +70,18 @@ async def check_and_send_messages():
                     continue
                 c.execute("SELECT user_id FROM subscribers WHERE username=?", (owner,))
                 user_id = c.fetchone()[0]
-
-                print(f"Alert for user {user_id}:")
-                print(f"Timestamp: {timestamp}")
-                print(f"Object: {obj}")
-                print(f"Owner: {owner}")
-                print(f"Lock Type: {lock_type}")
-                await send_message_to_user(client, f'Wake up {owner}, {user} is lockpicking your {obj}. He tried {attempts} times with {"" if success else "no"} success', user_id)
+                #
+                # print(f"Alert for user {user_id}:")
+                # print(f"Timestamp: {timestamp}")
+                # print(f"Object: {obj}")
+                # print(f"Owner: {owner}")
+                # print(f"Lock Type: {lock_type}")
+                if lock_type:
+                    await send_message_to_user(client, f'Wake up {owner.capitalize()}! {user.capitalize()} is lockpicking your {obj}. He tried {attempts} times with{"" if success else " no"} success!', user_id)
+                else:
+                    await send_message_to_user(client,
+                                               f'Wake up {owner.capitalize()}! {user.capitalize()} just triggered you {obj}!',
+                                               user_id)
             # else:
             #     print(f"Owner {owner} is not subscribed.")
 

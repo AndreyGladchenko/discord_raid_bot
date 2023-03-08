@@ -7,7 +7,7 @@
 #
 # async def check_and_send_messages():
 #     while True:
-#         with open('gameplay_log.json', 'r') as file:
+#         with open('tests.txt', 'r') as file:
 #             gameplay_log = json.load(file)
 #         with open('subscribers.json', 'r') as file2:
 #             subscribers = json.load(file2)
