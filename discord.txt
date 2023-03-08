@@ -1,0 +1,2 @@
+token: MTA4MTYwMjczNjEwMzExMjc2NQ.GogHH9.2d8fxywJ--sLtcxY5CGrbk4r3uQeJJmnUcM8g0
+inv_link: https://discord.com/api/oauth2/authorize?client_id=1081602736103112765&permissions=534992387152&scope=bot%20applications.commands
