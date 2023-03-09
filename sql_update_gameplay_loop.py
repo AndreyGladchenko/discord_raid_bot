@@ -11,15 +11,6 @@ port = 50021
 ftp_directory = "/SCUM/Saved/SaveFiles/Logs"
 
 
-# def add_user(user_id, username):
-#     conn = sqlite3.connect('raid_events.db')
-#
-#     conn.execute('INSERT INTO subscribers (user_id, username) VALUES (?, ?)', (user_id, username))
-#
-#     conn.commit()
-#     conn.close()
-
-
 def read_ftp_file():
     try:
         ftp = ftplib.FTP(timeout=30)
@@ -34,13 +25,12 @@ def read_ftp_file():
                           [file_info.split()[-1] for file_info in file_list]
                           if "gameplay" in file_name]
         file_name = str(gameplay_files[-1:][0])
-        file_name = "gameplay_20230308140059.log"
+        # file_name = "gameplay_20230308140059.log"
         with io.BytesIO() as file_buffer:
             ftp.retrbinary("RETR " + file_name, file_buffer.write)
             file_contents = file_buffer.getvalue()
             events = [line.split(" ") for line in file_contents.decode('utf-16').splitlines()]
             events = _map_events(events)
-            # write_json(_map_events(events))
             update_events(events)
 
         ftp.quit()
@@ -50,7 +40,6 @@ def read_ftp_file():
 
 
 def update_events(events):
-    print(events)
     conn = sqlite3.connect('raid_events.db')
 
     for timestamp, values in events.items():
