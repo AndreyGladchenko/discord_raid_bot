@@ -1,23 +1,26 @@
 import ftplib
 import io
+import os
 import sqlite3
 import time
+from dotenv import load_dotenv
 
+load_dotenv()
 
-ftp_server = "176.57.181.22"
-ftp_username = "gpftp28482171051965233"
-ftp_password = "0XSyZsTt"
-port = 50021
-ftp_directory = "/SCUM/Saved/SaveFiles/Logs"
+FTP_SERVER = os.getenv("FTP_SERVER")
+FTP_USERNAME = os.getenv("FTP_USERNAME")
+FTP_PASSWORD = os.getenv("FTP_PASSWORD")
+FTP_PORT = int(os.getenv("FTP_PORT"))
+FTP_DIRECTORY = os.getenv("FTP_DIRECTORY")
 
 
 def read_ftp_file():
     try:
         ftp = ftplib.FTP(timeout=30)
-        ftp.connect(ftp_server, port)
-        ftp.login(user=ftp_username, passwd=ftp_password)
+        ftp.connect(FTP_SERVER, FTP_PORT)
+        ftp.login(user=FTP_USERNAME, passwd=FTP_PASSWORD)
 
-        ftp.cwd(ftp_directory)
+        ftp.cwd(FTP_DIRECTORY)
         file_list = []
         ftp.dir(file_list.append)
 
@@ -25,7 +28,6 @@ def read_ftp_file():
                           [file_info.split()[-1] for file_info in file_list]
                           if "gameplay" in file_name]
         file_name = str(gameplay_files[-1:][0])
-        # file_name = "gameplay_20230308140059.log"
         with io.BytesIO() as file_buffer:
             ftp.retrbinary("RETR " + file_name, file_buffer.write)
             file_contents = file_buffer.getvalue()
