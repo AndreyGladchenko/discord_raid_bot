@@ -57,6 +57,7 @@ def update_events(events):
 def _map_events(events):
     mapped_events = {}
     for event in events:
+        print(event)
         event_meta = {
             'user': '',
             'owner': '',

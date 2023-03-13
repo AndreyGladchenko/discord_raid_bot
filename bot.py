@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os
 import sqlite3
 
 import discord
@@ -7,6 +8,7 @@ import discord
 from discord.ext import commands
 
 from sqlite_update_subscribers import add_user
+from dotenv import load_dotenv
 
 intents = discord.Intents.default()
 intents.members = True
@@ -15,6 +17,10 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+
+load_dotenv()
+
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 
 @client.event
@@ -30,7 +36,7 @@ async def send_message_to_user(_client, message, user_id):
 
 @client.event
 async def on_message(message):
-    if str(message.channel) == 'raiding-alerts':
+    if str(message.channel) == 'raid-alerts':
         username = message.content
         discord_id = message.author.id
 
@@ -86,4 +92,4 @@ async def check_and_send_messages():
 
         await asyncio.sleep(5)
 
-client.run('MTA4MTYwMjczNjEwMzExMjc2NQ.GogHH9.2d8fxywJ--sLtcxY5CGrbk4r3uQeJJmnUcM8g0')
+client.run(DISCORD_TOKEN)

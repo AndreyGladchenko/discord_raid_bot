@@ -1,2 +1,0 @@
- ['2023.03.06-21.56.06:', '[LogMinigame]', '[LockpickingMinigame_C]', 'User:', 'aself221', '(3,', '76561199126236006).', 'Success:', 'No.', 'Elapsed', 'time:', '8.46.', 'Failed', 'attempts:', '2.', 'Target', 'object:', 'BP_Laika_Item_Container_C.', 'Lock', 'ty
-pe:', 'Advanced.', 'User', 'owner:', '2([76561198082044014]', 'FartingSnake).', 'Location:', 'X=-368141.375', 'Y=-613727.625', 'Z=4691.745'],
